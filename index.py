@@ -6,6 +6,9 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.list import MDList, OneLineListItem
 from kivymd.uix.scrollview import MDScrollView
+from kivymd.uix.textfield import MDTextField
+
+
 
 class DiscoverKardzhaliApp(MDApp):
     def build(self):
@@ -34,6 +37,17 @@ class DiscoverKardzhaliApp(MDApp):
             text='Места',
             icon='map-marker'
         )
+
+        tab1_layout = MDBoxLayout(orientation='vertical', padding=10, spacing=10)
+
+        self.search_field = MDTextField(
+            hint_text="Търсене на място...",
+            mode='rectangle',
+            size_hint=(1, None),
+            height='40dp',
+            icon_right='magnify',)
+
+        tab1_layout.add_widget(self.search_field)
         
         # Създаване на списък с места
         scroll = MDScrollView()
@@ -59,7 +73,8 @@ class DiscoverKardzhaliApp(MDApp):
             )
         
         scroll.add_widget(places_list)
-        tab1.add_widget(scroll)
+        tab1_layout.add_widget(scroll)
+        tab1.add_widget(tab1_layout)
         
         # Tab 2 - Любими
         tab2 = MDBottomNavigationItem(

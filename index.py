@@ -7,6 +7,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.list import MDList, OneLineListItem
 from kivymd.uix.scrollview import MDScrollView
 from kivymd.uix.textfield import MDTextField
+from kivymd.uix.button import MDRaisedButton
 
 
 
@@ -31,7 +32,7 @@ class DiscoverKardzhaliApp(MDApp):
         # Bottom Navigation
         bottom_nav = MDBottomNavigation()
         
-        # Tab 1 - Места (със списък)
+        # Tab 1 - Places
         tab1 = MDBottomNavigationItem(
             name='places',
             text='Места',
@@ -39,7 +40,8 @@ class DiscoverKardzhaliApp(MDApp):
         )
 
         tab1_layout = MDBoxLayout(orientation='vertical', padding=10, spacing=10)
-
+        #Search place
+        
         self.search_field = MDTextField(
             hint_text="Търсене на място...",
             mode='rectangle',
@@ -49,11 +51,29 @@ class DiscoverKardzhaliApp(MDApp):
 
         tab1_layout.add_widget(self.search_field)
         
+
+        #Button categories
+        buttons_layout = MDBoxLayout(
+            orientation='horizontal',
+            spacing=5,
+            padding=[10, 5, 10, 5],
+            size_hint_y=None,
+            height='40dp'
+        )
+
+        #All button
+        btn_all = MDRaisedButton(
+            text="Всички",
+            on_release=lambda x: print("Всички места")
+        )
+            
+        buttons_layout.add_widget(btn_all)
+        tab1_layout.add_widget(buttons_layout)
+        
         # Създаване на списък с места
         scroll = MDScrollView()
         places_list = MDList()
         
-        # Примерни данни за места
         places = [
             "Перперикон",
             "Каменна сватба",
@@ -76,7 +96,7 @@ class DiscoverKardzhaliApp(MDApp):
         tab1_layout.add_widget(scroll)
         tab1.add_widget(tab1_layout)
         
-        # Tab 2 - Любими
+        # Tab 2 - Favorites
         tab2 = MDBottomNavigationItem(
             name='favorites',
             text='Любими',
@@ -88,7 +108,7 @@ class DiscoverKardzhaliApp(MDApp):
             font_style="H6"
         ))
         
-        # Tab 3 - Карта
+        # Tab 3 - Maps
         tab3 = MDBottomNavigationItem(
             name='map',
             text='Карта',
@@ -100,7 +120,7 @@ class DiscoverKardzhaliApp(MDApp):
             font_style="H6"
         ))
         
-        # Tab 4 - Профил
+        # Tab 4 - Profile
         tab4 = MDBottomNavigationItem(
             name='profile',
             text='Профил',

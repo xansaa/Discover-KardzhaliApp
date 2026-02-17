@@ -66,8 +66,36 @@ class DiscoverKardzhaliApp(MDApp):
             text="Всички",
             on_release=lambda x: print("Всички места")
         )
-            
+
+        #Nature button
+        btn_nature = MDRaisedButton(
+            text="Природа",
+            on_release=lambda x: print("Природни феномени")
+        )
+
+        #Dams button
+        btn_dams = MDRaisedButton(
+            text="Язовири",
+            on_release=lambda x: print("Язовири")
+        )
+ 
+        #History button
+        btn_history = MDRaisedButton(
+            text="Исторически",
+            on_release=lambda x: print("Исторически места")
+        )
+
+        #Temples button 
+        btn_tamples = MDRaisedButton(
+            text="Храмове",
+            on_release=lambda x: print("Храмове")
+        )
+
         buttons_layout.add_widget(btn_all)
+        buttons_layout.add_widget(btn_nature)
+        buttons_layout.add_widget(btn_dams)
+        buttons_layout.add_widget(btn_history)
+        buttons_layout.add_widget(btn_tamples)
         tab1_layout.add_widget(buttons_layout)
         
         # Създаване на списък с места

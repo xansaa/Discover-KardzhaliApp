@@ -40,8 +40,8 @@ class DiscoverKardzhaliApp(MDApp):
         )
 
         tab1_layout = MDBoxLayout(orientation='vertical', padding=10, spacing=10)
-        #Search place
         
+        #Search place
         self.search_field = MDTextField(
             hint_text="Търсене на място...",
             mode='rectangle',
@@ -51,7 +51,6 @@ class DiscoverKardzhaliApp(MDApp):
 
         tab1_layout.add_widget(self.search_field)
         
-
         #Button categories
         buttons_layout = MDBoxLayout(
             orientation='horizontal',
@@ -64,66 +63,71 @@ class DiscoverKardzhaliApp(MDApp):
         #All button
         btn_all = MDRaisedButton(
             text="Всички",
-            on_release=lambda x: print("Всички места")
+            on_release=lambda x: self.filter_places("Всички")  # ПОПРАВЕНО!
         )
 
         #Nature button
         btn_nature = MDRaisedButton(
             text="Природа",
-            on_release=lambda x: print("Природни феномени")
+            on_release=lambda x: self.filter_places("Природа")  # ПОПРАВЕНО!
         )
 
         #Dams button
         btn_dams = MDRaisedButton(
             text="Язовири",
-            on_release=lambda x: print("Язовири")
+            on_release=lambda x: self.filter_places("Язовири")  # ПОПРАВЕНО!
         )
  
         #History button
         btn_history = MDRaisedButton(
             text="Исторически",
-            on_release=lambda x: print("Исторически места")
+            on_release=lambda x: self.filter_places("Исторически")  # ПОПРАВЕНО!
         )
 
         #Temples button 
-        btn_tamples = MDRaisedButton(
+        btn_temples = MDRaisedButton(
             text="Храмове",
-            on_release=lambda x: print("Храмове")
+            on_release=lambda x: self.filter_places("Храмове")  # ПОПРАВЕНО!
         )
 
         buttons_layout.add_widget(btn_all)
         buttons_layout.add_widget(btn_nature)
         buttons_layout.add_widget(btn_dams)
         buttons_layout.add_widget(btn_history)
-        buttons_layout.add_widget(btn_tamples)
+        buttons_layout.add_widget(btn_temples)
+        
         tab1_layout.add_widget(buttons_layout)
         
-        # Създаване на списък с места
+        #Tab 1 - Places List
         scroll = MDScrollView()
-        places_list = MDList()
-        
-        places = [
-            "Перперикон",
-            "Каменна сватба",
-            "Юмрук скала",
-            "Църква Св. Георги",
-            "Централна джамия",
-            "Обсерватория Славей Златев",
-            "Крепост Устра",
-            "Язовир Кърджали",
-            "Екопътека Шампион",
-            "Историческия музей"
+        self.places_list = MDList()
+
+        #All places
+        self.all_places = [
+            {"name" : "Пещера Утробата", "category": "Природа"},
+            {"name" : "Язовир Кърджали", "category": "Язовири"},
+            {"name" : "Перперикон", "category": "Исторически"},
+            {"name" : "Храм Св. Успение Богородично", "category": "Храмове"},
+            {"name" : "Пещера Венеца", "category": "Природа"},
+            {"name" : "Язовир Студен кладенец", "category": "Язовири"},
+            {"name" : "Крепост Моняк", "category": "Исторически"},
+            {"name" : "Св. Йоан Предтеча", "category": "Храмове"},
+            {"name" : "Дяволското гърло", "category": "Природа"},
+            {"name" : "Язовир Ивайловград", "category": "Язовири"},
+            {"name" : "Крепост Калето", "category": "Исторически"},
+            {"name" : "Свети Георги Победоносец", "category": "Храмове"},
+            {"name" : "Каменната сватба", "category": "Природа"},
+            {"name" : "Каменните гъби", "category": "Природа"},
+            {"name" : "Скални ниши край село Ненково", "category": "Природа"},
+            {"name" : "Резерват Валчия дол", "category": "Природа"},
+            {"name" : "Защитена местност Перперишки скални гъби", "category": "Природа"},
         ]
-        
-        for place in places:
-            places_list.add_widget(
-                OneLineListItem(text=place)
-            )
-        
-        scroll.add_widget(places_list)
+
+        self.update_places_list(self.all_places)
+        scroll.add_widget(self.places_list)
         tab1_layout.add_widget(scroll)
-        tab1.add_widget(tab1_layout)
-        
+        tab1.add_widget(tab1_layout)  # ВАЖНО - това беше преди scroll!
+
         # Tab 2 - Favorites
         tab2 = MDBottomNavigationItem(
             name='favorites',
@@ -169,6 +173,21 @@ class DiscoverKardzhaliApp(MDApp):
         screen.add_widget(main_layout)
         
         return screen
+    
+    def update_places_list(self, places):
+        """Обновява списъка с места"""
+        self.places_list.clear_widgets()
+        for place in places:
+            self.places_list.add_widget(OneLineListItem(text=place["name"]))
+    
+    def filter_places(self, category):
+        """Филтрира местата по категория"""
+        if category == "Всички":
+            filtered = self.all_places
+        else:
+            filtered = [p for p in self.all_places if p["category"] == category]
+        
+        self.update_places_list(filtered)  # ПОПРАВЕНО - беше на грешно място!
 
 if __name__ == '__main__':
     DiscoverKardzhaliApp().run()

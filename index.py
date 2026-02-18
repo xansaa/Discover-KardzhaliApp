@@ -63,31 +63,31 @@ class DiscoverKardzhaliApp(MDApp):
         #All button
         btn_all = MDRaisedButton(
             text="Всички",
-            on_release=lambda x: self.filter_places("Всички")  # ПОПРАВЕНО!
+            on_release=lambda x: self.filter_places("Всички")  
         )
 
         #Nature button
         btn_nature = MDRaisedButton(
             text="Природа",
-            on_release=lambda x: self.filter_places("Природа")  # ПОПРАВЕНО!
+            on_release=lambda x: self.filter_places("Природа")  
         )
 
         #Dams button
         btn_dams = MDRaisedButton(
             text="Язовири",
-            on_release=lambda x: self.filter_places("Язовири")  # ПОПРАВЕНО!
+            on_release=lambda x: self.filter_places("Язовири") 
         )
  
         #History button
         btn_history = MDRaisedButton(
             text="Исторически",
-            on_release=lambda x: self.filter_places("Исторически")  # ПОПРАВЕНО!
+            on_release=lambda x: self.filter_places("Исторически")  
         )
 
         #Temples button 
         btn_temples = MDRaisedButton(
             text="Храмове",
-            on_release=lambda x: self.filter_places("Храмове")  # ПОПРАВЕНО!
+            on_release=lambda x: self.filter_places("Храмове")  
         )
 
         buttons_layout.add_widget(btn_all)
@@ -126,7 +126,7 @@ class DiscoverKardzhaliApp(MDApp):
         self.update_places_list(self.all_places)
         scroll.add_widget(self.places_list)
         tab1_layout.add_widget(scroll)
-        tab1.add_widget(tab1_layout)  # ВАЖНО - това беше преди scroll!
+        tab1.add_widget(tab1_layout)  
 
         # Tab 2 - Favorites
         tab2 = MDBottomNavigationItem(
@@ -174,12 +174,13 @@ class DiscoverKardzhaliApp(MDApp):
         
         return screen
     
+    #UPDATE PLACES LIST
     def update_places_list(self, places):
-        """Обновява списъка с места"""
         self.places_list.clear_widgets()
         for place in places:
             self.places_list.add_widget(OneLineListItem(text=place["name"]))
     
+    #UPDATE FILTER PLACES
     def filter_places(self, category):
         """Филтрира местата по категория"""
         if category == "Всички":
@@ -187,7 +188,7 @@ class DiscoverKardzhaliApp(MDApp):
         else:
             filtered = [p for p in self.all_places if p["category"] == category]
         
-        self.update_places_list(filtered)  # ПОПРАВЕНО - беше на грешно място!
+        self.update_places_list(filtered) 
 
 if __name__ == '__main__':
     DiscoverKardzhaliApp().run()

@@ -8,6 +8,7 @@ from kivymd.uix.list import MDList, OneLineListItem
 from kivymd.uix.scrollview import MDScrollView
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.button import MDRaisedButton
+from kivy.uix.spinner import Spinner
 
 
 
@@ -51,52 +52,17 @@ class DiscoverKardzhaliApp(MDApp):
 
         tab1_layout.add_widget(self.search_field)
         
-        #Button categories
-        buttons_layout = MDBoxLayout(
-            orientation='horizontal',
-            spacing=5,
-            padding=[10, 5, 10, 5],
-            size_hint_y=None,
-            height='40dp'
+        # Dropdown menu 
+        self.category_spinner = Spinner(
+            text='Категория: Всички',
+            values=('Всички', 'Природа', 'Язовири', 'Исторически', 'Храмове'),
+            size_hint=(1, None),
+            height='44dp',
+            background_color=(0.9, 0.9, 0.9, 1)
         )
+        self.category_spinner.bind(text=self.on_category_select)
+        tab1_layout.add_widget(self.category_spinner)
 
-        #All button
-        btn_all = MDRaisedButton(
-            text="Всички",
-            on_release=lambda x: self.filter_places("Всички")  
-        )
-
-        #Nature button
-        btn_nature = MDRaisedButton(
-            text="Природа",
-            on_release=lambda x: self.filter_places("Природа")  
-        )
-
-        #Dams button
-        btn_dams = MDRaisedButton(
-            text="Язовири",
-            on_release=lambda x: self.filter_places("Язовири") 
-        )
- 
-        #History button
-        btn_history = MDRaisedButton(
-            text="Исторически",
-            on_release=lambda x: self.filter_places("Исторически")  
-        )
-
-        #Temples button 
-        btn_temples = MDRaisedButton(
-            text="Храмове",
-            on_release=lambda x: self.filter_places("Храмове")  
-        )
-
-        buttons_layout.add_widget(btn_all)
-        buttons_layout.add_widget(btn_nature)
-        buttons_layout.add_widget(btn_dams)
-        buttons_layout.add_widget(btn_history)
-        buttons_layout.add_widget(btn_temples)
-        
-        tab1_layout.add_widget(buttons_layout)
         
         #Tab 1 - Places List
         scroll = MDScrollView()
@@ -182,13 +148,21 @@ class DiscoverKardzhaliApp(MDApp):
     
     #UPDATE FILTER PLACES
     def filter_places(self, category):
-        """Филтрира местата по категория"""
         if category == "Всички":
             filtered = self.all_places
         else:
             filtered = [p for p in self.all_places if p["category"] == category]
         
-        self.update_places_list(filtered) 
+        self.update_places_list(filtered)
+
+    def on_category_select(self, spinner, text):
+        if ":" in text:
+            category = text.split(": ")[1]
+        else:
+            category = text
+    
+        self.filter_places(category)
+        spinner.text = f"Категория: {category}"
 
 if __name__ == '__main__':
     DiscoverKardzhaliApp().run()

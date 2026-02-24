@@ -115,7 +115,7 @@ class DiscoverKardzhaliApp(MDApp):
 
         #Crate map view
         self.mapview = MapView(
-            zoom=11,
+            zoom=12,
             lat=41.65,
             lon=25.35
         )
@@ -174,7 +174,7 @@ class DiscoverKardzhaliApp(MDApp):
     
         self.filter_places(category)
         spinner.text = f"Категория: {category}"
-    
+    #RESET MAP
     def reset_map(self):
         # Placeholder for resetting map view when entering the map tab
         self.mapview.center_on(41.65, 25.35)

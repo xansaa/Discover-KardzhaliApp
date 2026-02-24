@@ -9,6 +9,7 @@ from kivymd.uix.scrollview import MDScrollView
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.button import MDRaisedButton
 from kivy.uix.spinner import Spinner
+from kivy_garden.mapview import MapView, MapMarkerPopup
 
 
 
@@ -112,12 +113,23 @@ class DiscoverKardzhaliApp(MDApp):
             text='Карта',
             icon='map'
         )
+
+        #Crate map view
+        self.mapview = MapView(
+            zoom=11,
+            lat=41.65,
+            lon=25.35
+        )
+
         tab3.add_widget(MDLabel(
             text="GPS Карта\n\n(Ще добавим скоро)",
             halign="center",
             font_style="H6"
         ))
-        
+
+        tab3.add_widget(self.mapview)
+        tab3.bind(on_enter=lambda x: self.reset_map())
+
         # Tab 4 - Profile
         tab4 = MDBottomNavigationItem(
             name='profile',
@@ -163,6 +175,11 @@ class DiscoverKardzhaliApp(MDApp):
     
         self.filter_places(category)
         spinner.text = f"Категория: {category}"
+    
+    def reset_map(self):
+        # Placeholder for resetting map view when entering the map tab
+        self.mapview.center_on(41.65, 25.35)
+        self.mapview.zoom = 11
 
 if __name__ == '__main__':
     DiscoverKardzhaliApp().run()

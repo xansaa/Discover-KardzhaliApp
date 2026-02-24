@@ -1,0 +1,5 @@
+# .gitignore
+*.cache
+__pycache__/
+*.pyc
+.kivy/

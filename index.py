@@ -12,7 +12,6 @@ from kivy.uix.spinner import Spinner
 from kivy_garden.mapview import MapView, MapMarkerPopup
 
 
-
 class DiscoverKardzhaliApp(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Blue"

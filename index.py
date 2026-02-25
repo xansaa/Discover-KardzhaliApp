@@ -174,6 +174,7 @@ class DiscoverKardzhaliApp(MDApp):
     
         self.filter_places(category)
         spinner.text = f"Категория: {category}"
+        
     #RESET MAP
     def reset_map(self):
         # Placeholder for resetting map view when entering the map tab

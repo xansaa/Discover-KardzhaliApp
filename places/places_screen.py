@@ -47,8 +47,7 @@ class PlacesScreen(MDBottomNavigationItem):
         self.places_list = MDList()
         scroll.add_widget(self.places_list)
         layout.add_widget(scroll)
-        
-        # Initial load of all places
+    
         self.update_places_list(self.all_places)
         
         self.add_widget(layout)

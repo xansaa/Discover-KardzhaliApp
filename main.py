@@ -3,7 +3,6 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.toolbar import MDTopAppBar
 from kivymd.uix.bottomnavigation import MDBottomNavigation
 from kivymd.uix.boxlayout import MDBoxLayout
-
 from places.places_screen import PlacesScreen
 from favorites.favorites_screen import FavoritesScreen
 from map.map_screen import MapScreen

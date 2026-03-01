@@ -72,6 +72,5 @@ class PlacesScreen(MDBottomNavigationItem):
             category = text.split(": ")[1]
         else:
             category = text
-        
         self.filter_places(category)
         spinner.text = f"Категория: {category}"

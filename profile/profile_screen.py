@@ -220,7 +220,7 @@ class ProfileScreen(MDBottomNavigationItem):
         content.add_widget(self.reg_email)
         
         self.reg_password = MDTextField(
-            hint_text="Парола (поне 6 символа)",
+            hint_text="Парола (поне 8 символа)",
             mode="rectangle",
             password=True
         )

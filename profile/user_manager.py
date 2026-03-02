@@ -1,6 +1,7 @@
 import json
 import os
 
+
 class UserManager:
     
     def __init__(self):
@@ -15,39 +16,36 @@ class UserManager:
         else:
             self.users = {}
     
-    #Saves users to file
     def _save_users(self):
         os.makedirs(os.path.dirname(self.users_file), exist_ok=True)
         with open(self.users_file, 'w', encoding='utf-8') as f:
             json.dump(self.users, f, ensure_ascii=False, indent=2)
     
-
-    #Register new user
     def register(self, username, email, password):
         if username in self.users:
-            return False, 
+            return False, "Потребителят вече съществува"
         
-        if len(password) < 8:
-            return False, 
+        if len(password) < 6:
+            return False, "Паролата трябва да е поне 6 символа"
         
         self.users[username] = {
             "email": email,
-            "password": password,  
+            "password": password,
             "favorites": [],
             "visited": []
         }
         self._save_users()
-        return True, 
+        return True, "Успешна регистрация"
     
     def login(self, username, password):
         if username not in self.users:
-            return False, 
+            return False, "Потребителят не съществува"
         
         if self.users[username]["password"] != password:
-            return False, 
+            return False, "Грешна парола"
         
         self.current_user = username
-        return True, 
+        return True, "Успешен вход"
     
     def logout(self):
         self.current_user = None
@@ -66,7 +64,7 @@ class UserManager:
             }
         return None
     
-    #Add favorite place to user's list
+    #Favorites management
     def add_favorite(self, place_name):
         if self.current_user:
             if place_name not in self.users[self.current_user]["favorites"]:
@@ -75,7 +73,7 @@ class UserManager:
                 return True
         return False
     
-    #Remove favorite place from user's list
+    #Remove from favorites
     def remove_favorite(self, place_name):
         if self.current_user:
             if place_name in self.users[self.current_user]["favorites"]:
